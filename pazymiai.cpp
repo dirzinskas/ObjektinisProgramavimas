@@ -257,7 +257,9 @@ int main()
     do
     {
         Meniu();
+        
         cin >> y;
+        if(cin.fail()) cin.clear();
         cin.ignore();
         switch (y)
         {
