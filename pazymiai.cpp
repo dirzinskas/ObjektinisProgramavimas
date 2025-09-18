@@ -6,6 +6,8 @@
 #include <stdexcept>
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
+#include <sstream>
 using namespace std;
 
 struct Studentas
@@ -50,6 +52,41 @@ double Vidurkis(vector<int> pazymiai)
     return (suma / dydis);
 };
 
+void Skaitymas(vector<Studentas> &s, string failas)
+{
+    ifstream in(failas);
+    if(!in)
+    {
+        cout<<"Nepavyko atidaryti failo."<<endl;
+        return;
+    }
+
+    string eilute;
+    getline(in, eilute);
+
+    while(getline(in,eilute))
+    {
+        if(eilute.empty()) continue;
+
+        istringstream iss(eilute);
+        Studentas petras;
+        iss>>petras.vardas>>petras.pavarde;
+
+        int skaicius;
+        while(iss>>skaicius){
+            petras.nd.push_back(skaicius);
+        }
+        if(!petras.nd.empty()){
+            petras.egz=petras.nd.back();
+            petras.nd.pop_back();
+        }
+        petras.vidurkis = 0.4 * Vidurkis(petras.nd) + 0.6 * petras.egz;
+        petras.mediana = 0.4 * Mediana(petras.nd) + 0.6 * petras.egz;
+
+        s.push_back(petras);
+    }
+    cout<<"duomenys nuskaityti is failo."<<endl;
+}
 void Ivedimas(vector<Studentas> &s, bool generuoti)
 {
     string zodis; // ivesciai patikrinti
@@ -194,15 +231,17 @@ void Meniu()
     cout << "Pasirinkite veiksma:" << endl;
     cout << "1. Ivesti duomenis ranka" << endl;
     cout << "2. Ivesti duomenis sugeneruojant pazymius" << endl;
-    cout << "3. Rodyti rezultatus" << endl;
-    cout << "4. Baigti darba" << endl;
-    cout << "Pasirinkite veiksma 1-4" << endl;
+    cout <<"3. Nuskaityti duomenis is failo"<<endl;
+    cout << "4. Rodyti rezultatus" << endl;
+    cout << "5. Baigti darba" << endl;
+    cout << "Pasirinkite veiksma 1-5" << endl;
 }
 
 int main()
 {
     vector<Studentas> s;
     int y; // pasirinkimas
+    string failas; //skaitomo failo vardas
     srand(time(0));
     do
     {
@@ -218,14 +257,19 @@ int main()
             Ivedimas(s, true);
             break;
         case 3:
-            Rezultatai(s);
+            cout<<"Iveskite failo varda: "<<endl;
+            cin>>failas;
+            Skaitymas(s, failas);
             break;
         case 4:
+            Rezultatai(s);
+            break;
+        case 5:
             cout << "programa baigia darba";
             break;
         default:
-            cout << "netinkama ivestis. pasirinkite skaiciu 1-4:"<<endl;
+            cout << "netinkama ivestis. pasirinkite skaiciu 1-5:"<<endl;
         }
-    } while (y != 4);
+    } while (y != 5);
     return 0;
 }
