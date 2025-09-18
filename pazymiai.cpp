@@ -72,9 +72,16 @@ void Skaitymas(vector<Studentas> &s, string failas)
         Studentas petras;
         iss>>petras.vardas>>petras.pavarde;
 
-        int skaicius;
-        while(iss>>skaicius){
-            petras.nd.push_back(skaicius);
+        string zodis;
+        while(iss>>zodis){
+            try
+            {
+                int skaicius=stoi(zodis);
+                petras.nd.push_back(skaicius);
+            }catch(invalid_argument){
+                petras.nd.push_back(0);
+            }
+            
         }
         if(!petras.nd.empty()){
             petras.egz=petras.nd.back();
