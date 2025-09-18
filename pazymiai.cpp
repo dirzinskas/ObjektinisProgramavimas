@@ -4,6 +4,8 @@
 #include <vector>
 #include <algorithm>
 #include <stdexcept>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
 struct Studentas{
@@ -11,6 +13,12 @@ struct Studentas{
     vector<int> nd;
     int egz;
     double vidurkis, mediana;
+    };
+
+    int RandomSk(int max)
+    {
+        srand(time(0));
+        return(rand()%(max+1));
     };
 
     double Mediana(vector<int> pazymiai){
@@ -33,7 +41,7 @@ struct Studentas{
     return(suma/dydis);
     };
 
-    void Ivedimas(vector<Studentas>& s)
+    void Ivedimas(vector<Studentas>& s, bool generuoti)
     {
          string zodis; //ivesciai patikrinti
 
@@ -48,7 +56,18 @@ struct Studentas{
         cout<<"iveskite pavarde: "<<endl;
         getline(cin,zodis);
         petras.pavarde=zodis;
-
+        
+        if(generuoti==true)
+        {
+            int ndSk = RandomSk(15); //namu darbu skaicius
+            for(int i=0;i<ndSk;i++)
+            {
+                petras.nd.push_back(RandomSk(10));
+            }
+            petras.egz=RandomSk(10);
+            cout<<"sugeneruota!"<<endl;
+        }
+        else{
         while(true){
             cout<<"iveskite namu darbu pazymi (0-10). Enter uzbaigs ivedima: "<<endl;
             getline(cin,zodis);
@@ -83,7 +102,7 @@ struct Studentas{
                     cout<<"netinkama ivestis. iveskite skaiciu nuo 0 iki 10"<<endl;
         }
 
-    }
+    }}
         petras.vidurkis=0.4*Vidurkis(petras.nd)+0.6*petras.egz;
         petras.mediana=0.4*Mediana(petras.nd)+0.6*petras.egz;
 
@@ -141,11 +160,14 @@ struct Studentas{
     void Meniu(){
         cout<<"MENIU"<<endl;
         cout<<"Pasirinkite veiksma:"<<endl;
-        cout<<"1. Ivesti duomenis"<<endl;
-        cout<<"2. Rodyti rezultatus"<<endl;
-        cout<<"3. Baigti darba"<<endl;
-        cout<<"Pasirinkite veiksma 1-3"<<endl;
+        cout<<"1. Ivesti duomenis ranka"<<endl;
+        cout<<"2. Ivesti duomenis sugeneruojant pazymius"<<endl;
+        cout<<"3. Rodyti rezultatus"<<endl;
+        cout<<"4. Baigti darba"<<endl;
+        cout<<"Pasirinkite veiksma 1-4"<<endl;
     }
+
+
 
 int main() {
     vector<Studentas> s;
@@ -156,17 +178,19 @@ int main() {
         cin.ignore();
         switch(y){
             case 1:
-            Ivedimas(s);
+            Ivedimas(s, false);
             break;
             case 2:
+            Ivedimas(s, true);
+            case 3:
             Rezultatai(s);
             break;
-            case 3:
+            case 4:
             cout<<"programa baigia darba";
             break;
             default:
-            cout<<"netinkama ivestis. pasirinkite skaiciu 1-3:";
+            cout<<"netinkama ivestis. pasirinkite skaiciu 1-4:";
         }
-    }while(y!=3);
+    }while(y!=4);
     return 0;
 }
