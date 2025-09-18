@@ -23,8 +23,9 @@ int RandomSk(int max)
     return (rand() % (max + 1));
 };
 
-bool Lyginimas(const Studentas &petras,const Studentas &jonas){
-    return petras.vardas<jonas.vardas;
+bool Lyginimas(const Studentas &petras, const Studentas &jonas)
+{
+    return petras.vardas < jonas.vardas;
 }
 
 double Mediana(vector<int> pazymiai)
@@ -59,36 +60,40 @@ double Vidurkis(vector<int> pazymiai)
 void Skaitymas(vector<Studentas> &s, string failas)
 {
     ifstream in(failas);
-    if(!in)
+    if (!in)
     {
-        cout<<"Nepavyko atidaryti failo."<<endl;
+        cout << "Nepavyko atidaryti failo." << endl;
         return;
     }
 
     string eilute;
     getline(in, eilute);
 
-    while(getline(in,eilute))
+    while (getline(in, eilute))
     {
-        if(eilute.empty()) continue;
+        if (eilute.empty())
+            continue;
 
         istringstream iss(eilute);
         Studentas petras;
-        iss>>petras.vardas>>petras.pavarde;
+        iss >> petras.vardas >> petras.pavarde;
 
         string zodis;
-        while(iss>>zodis){
+        while (iss >> zodis)
+        {
             try
             {
-                int skaicius=stoi(zodis);
+                int skaicius = stoi(zodis);
                 petras.nd.push_back(skaicius);
-            }catch(invalid_argument){
+            }
+            catch (invalid_argument)
+            {
                 petras.nd.push_back(0);
             }
-            
         }
-        if(!petras.nd.empty()){
-            petras.egz=petras.nd.back();
+        if (!petras.nd.empty())
+        {
+            petras.egz = petras.nd.back();
             petras.nd.pop_back();
         }
         petras.vidurkis = 0.4 * Vidurkis(petras.nd) + 0.6 * petras.egz;
@@ -96,7 +101,7 @@ void Skaitymas(vector<Studentas> &s, string failas)
 
         s.push_back(petras);
     }
-    cout<<"duomenys nuskaityti is failo."<<endl;
+    cout << "Duomenys nuskaityti is failo." << endl;
 }
 void Ivedimas(vector<Studentas> &s, bool generuoti)
 {
@@ -106,13 +111,13 @@ void Ivedimas(vector<Studentas> &s, bool generuoti)
     {
         Studentas petras;
 
-        cout << "iveskite varda (spauskite Enter, kad uzbaigti studentu ivedima):" << endl;
+        cout << "Iveskite varda (spauskite Enter, kad uzbaigti studentu ivedima):" << endl;
         getline(cin, zodis);
         if (zodis.empty())
             break;
         petras.vardas = zodis;
 
-        cout << "iveskite pavarde: " << endl;
+        cout << "Iveskite pavarde: " << endl;
         getline(cin, zodis);
         petras.pavarde = zodis;
 
@@ -124,13 +129,13 @@ void Ivedimas(vector<Studentas> &s, bool generuoti)
                 petras.nd.push_back(RandomSk(10));
             }
             petras.egz = RandomSk(10);
-            cout << "sugeneruota!" << endl;
+            cout << "Sugeneruota!" << endl;
         }
         else
         {
             while (true)
             {
-                cout << "iveskite namu darbu pazymi (0-10). Enter uzbaigs ivedima: " << endl;
+                cout << "Iveskite namu darbu pazymi (0-10). 'Enter' uzbaigs ivedima: " << endl;
                 getline(cin, zodis);
                 try
                 {
@@ -143,16 +148,16 @@ void Ivedimas(vector<Studentas> &s, bool generuoti)
                     }
                     else
                     {
-                        cout << "netinkama ivestis. iveskite skaiciu nuo 0 iki 10" << endl;
+                        cout << "Netinkama ivestis. Iveskite skaiciu nuo 0 iki 10" << endl;
                     }
                 }
                 catch (const invalid_argument &)
                 {
-                    cout << "netinkama ivestis. iveskite skaiciu nuo 0 iki 10" << endl;
+                    cout << "Netinkama ivestis. Iveskite skaiciu nuo 0 iki 10" << endl;
                 }
             }
 
-            cout << "iveskite egzamino rezultata:" << endl;
+            cout << "Iveskite egzamino rezultata:" << endl;
             while (true)
             {
                 getline(cin, zodis);
@@ -166,12 +171,12 @@ void Ivedimas(vector<Studentas> &s, bool generuoti)
                     }
                     else
                     {
-                        cout << "netinkama ivestis. iveskite skaiciu nuo 0 iki 10" << endl;
+                        cout << "Netinkama ivestis. Iveskite skaiciu nuo 0 iki 10" << endl;
                     }
                 }
                 catch (const invalid_argument &)
                 {
-                    cout << "netinkama ivestis. iveskite skaiciu nuo 0 iki 10" << endl;
+                    cout << "Netinkama ivestis. Iveskite skaiciu nuo 0 iki 10" << endl;
                 }
             }
         }
@@ -179,42 +184,42 @@ void Ivedimas(vector<Studentas> &s, bool generuoti)
         petras.mediana = 0.4 * Mediana(petras.nd) + 0.6 * petras.egz;
 
         s.push_back(petras);
-        cout << "studento duomenys ivesti." << endl;
+        cout << "Studento duomenys ivesti!" << endl;
     }
 };
 
 void Rezultatai(vector<Studentas> s)
 {
     char x; // kokio formato isvedimas
-    sort(s.begin(),s.end(),Lyginimas);
+    sort(s.begin(), s.end(), Lyginimas);
     if (s.empty())
-        cout << "nera ivestu studentu." << endl;
+        cout << "Nera ivestu studentu." << endl;
     else
     {
 
         while (true)
         {
-            cout << "kaip turetu buti skaiciuojamas vidurkis?" << endl;
+            cout << "Kaip turetu buti skaiciuojamas vidurkis?" << endl;
             cout << "vidurkis(v), mediana(m) ar abu(a)?" << endl;
             cin >> x;
             if (x == 'a' || x == 'v' || x == 'm')
                 break;
             else
             {
-                cout << "netinkama ivestis. iveskite v, m arba a." << endl;
+                cout << "Netinkama ivestis. Iveskite 'v', 'm' arba 'a'." << endl;
             }
         }
-        cout << setw(20) << left << "pavarde" << setw(20) << "vardas";
+        cout << setw(20) << left << "Pavarde" << setw(20) << "Vardas";
         switch (x)
         {
         case 'v':
-            cout << setw(20) << "galutinis(vid.)" << endl;
+            cout << setw(20) << "Galutinis (Vid.)" << endl;
             break;
         case 'm':
-            cout << setw(20) << "galutinis(med.)" << endl;
+            cout << setw(20) << "Galutinis (Med.)" << endl;
             break;
         case 'a':
-            cout << setw(20) << left << "galutinis(vid.)" << setw(20) << left << "galutinis(med.)" << endl;
+            cout << setw(20) << left << "Galutinis (Vid.)" << setw(20) << left << "Galutinis (Med.)" << endl;
             break;
         };
         for (size_t i = 0; i < s.size(); i++)
@@ -238,28 +243,32 @@ void Rezultatai(vector<Studentas> s)
 
 void Meniu()
 {
+    cout << "-----------------------------------------" << endl;
     cout << "MENIU" << endl;
+    cout << "-----------------------------------------" << endl;
     cout << "Pasirinkite veiksma:" << endl;
     cout << "1. Ivesti duomenis ranka" << endl;
     cout << "2. Ivesti duomenis sugeneruojant pazymius" << endl;
-    cout <<"3. Nuskaityti duomenis is failo"<<endl;
+    cout << "3. Nuskaityti duomenis is failo" << endl;
     cout << "4. Rodyti rezultatus" << endl;
     cout << "5. Baigti darba" << endl;
+    cout << "-----------------------------------------" << endl;
     cout << "Pasirinkite veiksma 1-5" << endl;
 }
 
 int main()
 {
     vector<Studentas> s;
-    int y; // pasirinkimas
-    string failas; //skaitomo failo vardas
+    int y;         // pasirinkimas
+    string failas; // skaitomo failo vardas
     srand(time(0));
     do
     {
         Meniu();
-        
+
         cin >> y;
-        if(cin.fail()) cin.clear();
+        if (cin.fail())
+            cin.clear();
         cin.ignore();
         switch (y)
         {
@@ -270,18 +279,18 @@ int main()
             Ivedimas(s, true);
             break;
         case 3:
-            cout<<"Iveskite failo varda: "<<endl;
-            cin>>failas;
+            cout << "Iveskite failo varda: " << endl;
+            cin >> failas;
             Skaitymas(s, failas);
             break;
         case 4:
             Rezultatai(s);
             break;
         case 5:
-            cout << "programa baigia darba";
+            cout << "Programa baigia darba.";
             break;
         default:
-            cout << "netinkama ivestis. pasirinkite skaiciu 1-5:"<<endl;
+            cout << "Netinkama ivestis. Pasirinkite skaiciu 1-5:" << endl;
         }
     } while (y != 5);
     return 0;
