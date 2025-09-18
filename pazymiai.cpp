@@ -31,12 +31,11 @@ struct Studentas{
     suma+=pazymiai[i];
     }
     return(suma/dydis);
-    }
+    };
 
-int main() {
-    char x; //kokio formato isvedimas
-    vector<Studentas> s;
-    string zodis; //ivesciai patikrinti
+    void Ivedimas(vector<Studentas>& s)
+    {
+         string zodis; //ivesciai patikrinti
 
         while(true){
         Studentas petras;
@@ -89,9 +88,16 @@ int main() {
         petras.mediana=0.4*Mediana(petras.nd)+0.6*petras.egz;
 
         s.push_back(petras);
+        cout<<"studento duomenys ivesti."<<endl;
     }
+    };
 
-    if(s.empty())cout<<"studentu nebuvo.";
+    void Rezultatai(vector<Studentas> s)
+    {
+        char x; //kokio formato isvedimas
+   
+
+    if(s.empty())cout<<"nera ivestu studentu."<<endl;
     else{
 
     while(true){
@@ -119,10 +125,10 @@ int main() {
         cout<<setw(20)<<left<<s[i].pavarde<<setw(20)<<left<<s[i].vardas;
             switch(x){
         case 'v':
-            cout<<endl<<setw(20)<<left<<fixed<<setprecision(2)<<s[i].vidurkis<<endl;
+            cout<<setw(20)<<left<<fixed<<setprecision(2)<<s[i].vidurkis<<endl;
             break;
         case 'm':
-            cout<<endl<<setw(20)<<left<<fixed<<setprecision(2)<<s[i].mediana<<endl;
+            cout<<setw(20)<<left<<fixed<<setprecision(2)<<s[i].mediana<<endl;
             break;
         case 'a':
             cout<<setw(20)<<left<<fixed<<setprecision(2)<<s[i].vidurkis<<setw(20)<<left<<s[i].mediana<<endl;
@@ -130,6 +136,37 @@ int main() {
     };
     }
     }
+    };
 
+    void Meniu(){
+        cout<<"MENIU"<<endl;
+        cout<<"Pasirinkite veiksma:"<<endl;
+        cout<<"1. Ivesti duomenis"<<endl;
+        cout<<"2. Rodyti rezultatus"<<endl;
+        cout<<"3. Baigti darba"<<endl;
+        cout<<"Pasirinkite veiksma 1-3"<<endl;
+    }
+
+int main() {
+    vector<Studentas> s;
+    int y; //pasirinkimas
+    do{
+        Meniu();
+        cin>>y;
+        cin.ignore();
+        switch(y){
+            case 1:
+            Ivedimas(s);
+            break;
+            case 2:
+            Rezultatai(s);
+            break;
+            case 3:
+            cout<<"programa baigia darba";
+            break;
+            default:
+            cout<<"netinkama ivestis. pasirinkite skaiciu 1-3:";
+        }
+    }while(y!=3);
     return 0;
 }
