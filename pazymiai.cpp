@@ -18,8 +18,7 @@ struct Studentas{
         return((pazymiai[(n/2)-1]+pazymiai[n/2])/2.0);
     } else {
         return pazymiai[n/2];
-    }
-    };
+    }};
 
 int main() {
     int n; //nd skaicius
@@ -48,10 +47,36 @@ int main() {
     }
 
     
-
-    cout<<setw(20)<<left<<"pavarde"<<setw(20)<<"vardas"<<setw(20)<<"galutinis(vid.)"<<endl;
+    cout<<"kaip turetu buti skaiciuojamas vidurkis?"<<endl;
+    cout<<"vidurkis(v), mediana(m) ar abu(a)?"<<endl;
+    cin>>x;
+    cout<<setw(20)<<left<<"pavarde"<<setw(20)<<"vardas";
+    switch(x){
+        case 'v':
+            cout<<setw(20)<<"galutinis(vid.)"<<endl;
+            break;
+        case 'm':
+            cout<<setw(20)<<"galutinis(med.)"<<endl;
+            break;
+        case 'a':
+            cout<<setw(20)<<left<<"galutinis(vid.)"<<setw(20)<<left<<"galutinis(med.)"<<endl;
+            break;
+    };
     for(int i=0;i<3;i++){
-        cout<<setw(20)<<left<<s[i].pavarde<<setw(20)<<left<<s[i].vardas<<setw(20)<<left<<fixed<<setprecision(2)<<s[i].vidurkis<<endl;
+            switch(x){
+        case 'v':
+            cout<<setw(20)<<left<<s[i].pavarde<<setw(20)<<left<<s[i].vardas;
+            cout<<endl<<setw(20)<<left<<fixed<<setprecision(2)<<s[i].vidurkis<<endl;
+            break;
+        case 'm':
+            cout<<setw(20)<<left<<s[i].pavarde<<setw(20)<<left<<s[i].vardas;
+            cout<<endl<<setw(20)<<left<<fixed<<setprecision(2)<<s[i].mediana<<endl;
+            break;
+        case 'a':
+            cout<<setw(20)<<left<<s[i].pavarde<<setw(20)<<left<<s[i].vardas;
+            cout<<setw(20)<<left<<fixed<<setprecision(2)<<s[i].vidurkis<<setw(20)<<left<<fixed<<setprecision(2)<<s[i].mediana<<endl;
+            break;
+    };
     }
 
     return 0;
