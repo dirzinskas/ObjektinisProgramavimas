@@ -23,6 +23,10 @@ int RandomSk(int max)
     return (rand() % (max + 1));
 };
 
+bool Lyginimas(const Studentas &petras,const Studentas &jonas){
+    return petras.vardas<jonas.vardas;
+}
+
 double Mediana(vector<int> pazymiai)
 {
     if (pazymiai.empty())
@@ -182,7 +186,7 @@ void Ivedimas(vector<Studentas> &s, bool generuoti)
 void Rezultatai(vector<Studentas> s)
 {
     char x; // kokio formato isvedimas
-
+    sort(s.begin(),s.end(),Lyginimas);
     if (s.empty())
         cout << "nera ivestu studentu." << endl;
     else
