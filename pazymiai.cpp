@@ -57,6 +57,27 @@ double Vidurkis(vector<int> pazymiai)
     return (suma / dydis);
 };
 
+void GeneruotiDuomenis()
+{
+    int dydziai[5]={1000,10000,100000,1000000,10000000};
+    for(int i=0; i<(sizeof(dydziai)/4);i++)
+    {
+        string pavadinimas="studentai"+to_string(dydziai[i])+".txt";
+        ofstream duom(pavadinimas);
+        duom<<"Pavarde Vardas ND1 ND2 ND3 ND4 ND5 Egzaminas"<<endl;
+        for(int j=0;j<dydziai[i];j++)
+        {
+            duom<<"Pavarde"+to_string(j+1)+" Vardas"+to_string(j+1)<<" ";
+            for (int i = 0; i <6; i++)
+            {
+                duom<<RandomSk(10)<<" ";
+            }
+            
+            duom<<endl;
+        }
+        duom.close();
+    }
+}
 void Skaitymas(vector<Studentas> &s, string failas)
 {
     ifstream in(failas);
@@ -247,13 +268,14 @@ void Meniu()
     cout << "MENIU" << endl;
     cout << "-----------------------------------------" << endl;
     cout << "Pasirinkite veiksma:" << endl;
-    cout << "1. Ivesti duomenis ranka" << endl;
-    cout << "2. Ivesti duomenis sugeneruojant pazymius" << endl;
-    cout << "3. Nuskaityti duomenis is failo" << endl;
-    cout << "4. Rodyti rezultatus" << endl;
-    cout << "5. Baigti darba" << endl;
+    cout << "1. Sugeneruoti testinius failus" <<endl;
+    cout << "2. Ivesti duomenis ranka" << endl;
+    cout << "3. Ivesti duomenis sugeneruojant pazymius" << endl;
+    cout << "4. Nuskaityti duomenis is failo" << endl;
+    cout << "5. Rodyti rezultatus" << endl;
+    cout << "6. Baigti darba" << endl;
     cout << "-----------------------------------------" << endl;
-    cout << "Pasirinkite veiksma 1-5" << endl;
+    cout << "Pasirinkite veiksma 1-6" << endl;
 }
 
 int main()
@@ -273,25 +295,28 @@ int main()
         switch (y)
         {
         case 1:
-            Ivedimas(s, false);
+            GeneruotiDuomenis();
             break;
         case 2:
-            Ivedimas(s, true);
+            Ivedimas(s, false);
             break;
         case 3:
+            Ivedimas(s, true);
+            break;
+        case 4:
             cout << "Iveskite failo varda: " << endl;
             cin >> failas;
             Skaitymas(s, failas);
             break;
-        case 4:
+        case 5:
             Rezultatai(s);
             break;
-        case 5:
+        case 6:
             cout << "Programa baigia darba.";
             break;
         default:
             cout << "Netinkama ivestis. Pasirinkite skaiciu 1-5:" << endl;
         }
-    } while (y != 5);
+    } while (y != 6);
     return 0;
 }
