@@ -209,13 +209,12 @@ void Ivedimas(vector<Studentas> &s, bool generuoti)
     }
 };
 
-void Rusiavimas(vector<Studentas>& s)
+void Rusiavimas(vector<Studentas>& s, vector<Studentas>&g, vector<Studentas>&v)
 {
     int i;
-    vector<Studentas> g, v;
     for(i=0;i<s.size();i++)
     {
-        if(s[i].vidurkis<5)
+        if(s[i].vidurkis<5 && s[i].mediana<5)
         {
             v.push_back(s[i]);
         }
@@ -224,9 +223,19 @@ void Rusiavimas(vector<Studentas>& s)
             g.push_back(s[i]);
         }
     }
-    
-
 }
+
+void Rasymas(vector<Studentas> s, string x)
+{
+    string pavadinimas="rezultatai_"+ x +".txt";
+    ofstream rez(pavadinimas);
+    rez<<"Pavarde "<<"Vardas "<<"Galutinis (Vid.) "<<"Galutinis (Med.) "<<endl;
+    for(int i=0;i<s.size();i++)
+    {
+        rez<<s[i].pavarde<<" "<<s[i].vardas<<" "<<s[i].vidurkis<<" "<<s[i].mediana<<" "<<endl;
+    }
+}
+
 void Rezultatai(vector<Studentas> s)
 {
     char x; // kokio formato isvedimas
@@ -292,8 +301,8 @@ void Meniu()
     cout << "2. Ivesti duomenis ranka" << endl;
     cout << "3. Ivesti duomenis sugeneruojant pazymius" << endl;
     cout << "4. Nuskaityti duomenis is failo" << endl;
-    cout << "5. Surusiuoti studentus"<<endl;
-    cout << "6. Rodyti rezultatus" << endl;
+    cout << "5. Rodyti rezultatus" << endl;
+    cout << "6. Isvesti studentus i faila" <<endl;
     cout << "7. Baigti darba" << endl;
     cout << "-----------------------------------------" << endl;
     cout << "Pasirinkite veiksma 1-7" << endl;
@@ -301,8 +310,9 @@ void Meniu()
 
 int main()
 {
-    vector<Studentas> s;
+    vector<Studentas> s, g, v;
     int y;         // pasirinkimas
+    char x;
     string failas; // skaitomo failo vardas
     srand(time(0));
     do
@@ -330,16 +340,40 @@ int main()
             Skaitymas(s, failas);
             break;
         case 5:
-            Rusiavimas(s);
+            while (true)
+        {
+            cout << "Kokius studentus jums pateikti?" << endl;
+            cout << "galvocius (g), vargsus (v) ar abu (a)?" << endl;
+            cin >> x;
+            if (x == 'g' || x == 'v' || x == 'a')
+                break;
+            else
+            {
+                cout << "Netinkama ivestis. Iveskite 'g', 'v' arba 'a'." << endl;
+            }
+        }
+            switch(x){
+                case 'g':
+                    Rusiavimas(s, g, v);
+                    Rezultatai(g);
+                case 'v':
+                    Rusiavimas(s, g, v);
+                    Rezultatai(v);
+                case 'a':
+                    Rezultatai(s);
+            }
             break;
         case 6:
-            Rezultatai(s);
+            Rusiavimas(s,g,v);
+            if(g.empty() || v.empty()) cout << "klaida. nera tinkamu studentu"<<endl;
+            Rasymas(g, "g");
+            Rasymas(v, "v");
             break;
         case 7:
             cout << "Programa baigia darba.";
             break;
         default:
-            cout << "Netinkama ivestis. Pasirinkite skaiciu 1-5:" << endl;
+            cout << "Netinkama ivestis. Pasirinkite skaiciu 1-7:" << endl;
         }
     } while (y != 7);
     return 0;
