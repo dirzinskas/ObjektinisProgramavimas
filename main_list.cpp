@@ -1,11 +1,11 @@
-#include "studentas.h"
-#include <chrono>   // <-- pridėta chrono
+#include "studentas_list.h"
+#include <chrono>
 
 using namespace std;
 using namespace std::chrono;
 
 int main() {
-    vector<Studentas> s, g, v;
+    list<Studentas> s, g, v;
     int y;
     char x;
     string failas;
@@ -91,4 +91,3 @@ int main() {
     } while (y != 7);
     return 0;
 }
-
