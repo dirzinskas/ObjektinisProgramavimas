@@ -48,6 +48,7 @@ void Skaitymas(vector<Studentas> &s, string failas) {
 
     string eilute;
     getline(in, eilute);
+    int counter = 0;
 
     while (getline(in, eilute)) {
         if (eilute.empty()) continue;
@@ -73,8 +74,13 @@ void Skaitymas(vector<Studentas> &s, string failas) {
         petras.mediana = 0.4 * Mediana(petras.nd) + 0.6 * petras.egz;
 
         s.push_back(petras);
+        
+        counter++;
+        if (counter % 100000 == 0) {
+            cout << "Nuskaityti " << counter << " studentu..." << endl;
+        }
     }
-    cout << "Duomenys nuskaityti is failo." << endl;
+    cout << "Duomenys nuskaityti is failo. Viso: " << s.size() << " studentu." << endl;
 }
 
 void Ivedimas(vector<Studentas> &s, bool generuoti) {
