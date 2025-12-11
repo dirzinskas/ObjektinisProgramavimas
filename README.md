@@ -10,6 +10,7 @@ vidurkis 4 / 0 / 19.3
 2 33 / 7/ 206
 3 37 / 5/ 185
 vidurkis 42.67 / 5.66/ 170.33
+<img width="449" height="83" alt="image" src="https://github.com/user-attachments/assets/ae06e8e9-8fd8-4120-bbb1-466eeea3ae6d" />
 100000
 1 251 / 14/ 430
 2 238 / 15/ 401
@@ -51,3 +52,8 @@ vidurkis 3340.33 / 475.33 / 919.67
 2 34718 / 601 / 94712
 3 32977 / 568 / 91364
 vidurkis 33729 / 584 / 92977.67
+
+Sistemos parametrai:
+cpu Integrated AMD Radeon Graphics (AMD Ryzen 5 5500U (6-core))
+ram 16GB DDR4 RAM
+ssd 512GB NVMe
