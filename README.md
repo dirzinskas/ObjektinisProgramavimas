@@ -1,15 +1,15 @@
 testai daromi po 3 kartus
 Vector failas: skaitymas/grupavimas/rasymas
 1000
-1 4 //
-2 4 //
-3 4 //
-vidurkis 4 //
+1 4 / 0 / 12
+2 4 / 0 / 19
+3 4 / 0 / 27
+vidurkis 4 / 0 / 19.3
 10000
-1 58 //
-2 33 //
-3 37 //
-vidurkis 42.67 //
+1 58 / 5/ 120
+2 33 / 7/ 206
+3 37 / 5/ 185
+vidurkis 42.67 / 5.66/ 170.33
 100000
 1 251 //
 2 238 //
