@@ -1,1 +1,53 @@
-# ObjektinisProgramavimas
+testai daromi po 3 kartus
+Vector failas: skaitymas/grupavimas/rasymas
+1000
+1
+2
+3
+vidurkis 
+10000
+1
+2
+3
+vidurkis 
+100000
+1
+2
+3
+vidurkis 
+1000000
+1
+2
+3
+vidurkis 
+10000000
+1
+2
+3
+vidurkis 
+List failas: skaitymas/grupavimas/rasymas
+1000
+1
+2
+3
+vidurkis 
+10000
+1
+2
+3
+vidurkis 
+100000
+1
+2
+3
+vidurkis 
+1000000
+1
+2
+3
+vidurkis 
+10000000
+1
+2
+3
+vidurkis 
