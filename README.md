@@ -32,10 +32,10 @@ List failas: skaitymas/grupavimas/rasymas
 3
 vidurkis 
 10000
-1
-2
-3
-vidurkis 
+1 7 / 1 / 23
+2 6 / 1 / 21
+3 8 / 2 / 24
+vidurkis 7 / 1.33 / 22.67
 100000
 1
 2
