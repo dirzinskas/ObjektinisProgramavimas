@@ -27,15 +27,15 @@ vidurkis 2356 / 127.33 / 4616.67
 vidurkis 24484.33 / 1335.67 / 47997
 List failas: skaitymas/grupavimas/rasymas
 1000
-1
-2
-3
-vidurkis 
-10000
 1 7 / 1 / 23
 2 6 / 1 / 21
 3 8 / 2 / 24
 vidurkis 7 / 1.33 / 22.67
+10000
+1 64 / 9 / 157
+2 71 / 8 / 146
+3 66 / 10 / 152
+vidurkis 67 / 9 / 151.67
 100000
 1
 2
