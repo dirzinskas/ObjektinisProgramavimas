@@ -3,10 +3,10 @@
 
 using namespace std;
 using namespace std::chrono;
-
-// Template function to run the menu loop for any container
-template<typename Container>
-void runProgram(Container& s, Container& g, Container& v) {
+template<typename konteineris>
+void runProgram(konteineris& s) {
+    konteineris g;
+    konteineris v;
     int y;
     char x;
     string failas;
@@ -19,9 +19,9 @@ void runProgram(Container& s, Container& g, Container& v) {
         if (cin.fail()) {
             cin.clear();
             cin.ignore(10000, '\n');
-            continue; // go back to menu
+            continue;
         } else {
-            cin.ignore(10000, '\n'); // clear newline
+            cin.ignore(10000, '\n');
         }
 
         switch (y) {
@@ -34,12 +34,15 @@ void runProgram(Container& s, Container& g, Container& v) {
                      << " ms" << endl;
                 break;
             }
+
             case 2:
                 Ivedimas(s, false);
                 break;
+
             case 3:
                 Ivedimas(s, true);
                 break;
+
             case 4: {
                 cout << "Iveskite failo varda: ";
                 cin >> failas;
@@ -52,7 +55,10 @@ void runProgram(Container& s, Container& g, Container& v) {
                      << " ms" << endl;
                 break;
             }
-            case 5: {
+
+            case 5:
+            case 6: {
+            
                 while (true) {
                     cout << "Kokius studentus pateikti? g, v ar a? ";
                     cin >> x;
@@ -61,35 +67,47 @@ void runProgram(Container& s, Container& g, Container& v) {
                 }
 
                 auto start = high_resolution_clock::now();
-                Rusiavimas(s, g, v);
+
+                v.clear();
+                g.clear();
+                for (auto &st : s) {
+                    if (st.vidurkis < 5 && st.mediana < 5)
+                        v.push_back(st);
+                    else
+                        g.push_back(st);
+                }           
+
                 auto end = high_resolution_clock::now();
                 cout << "Rusiavimas i grupes uztruko: "
                      << duration_cast<milliseconds>(end - start).count()
                      << " ms" << endl;
 
+
                 if (x == 'g') Rezultatai(g);
                 else if (x == 'v') Rezultatai(v);
                 else Rezultatai(s);
-                break;
-            }
-            case 6: {
-                Rusiavimas(s, g, v);
-                if (g.empty() || v.empty()) {
-                    cout << "Klaida. Nera tinkamu studentu" << endl;
-                } else {
-                    auto start = high_resolution_clock::now();
-                    Rasymas(g, "g");
-                    Rasymas(v, "v");
-                    auto end = high_resolution_clock::now();
-                    cout << "Rezultatu isvedimas i failus uztruko: "
-                         << duration_cast<milliseconds>(end - start).count()
-                         << " ms" << endl;
+
+
+                if (y == 6) {
+                    if (g.empty() && v.empty()) {
+                        cout << "Klaida. Nera tinkamu studentu" << endl;
+                    } else {
+                        start = high_resolution_clock::now();
+                        Rasymas(g, "g");
+                        Rasymas(v, "v");
+                        end = high_resolution_clock::now();
+                        cout << "Rezultatu isvedimas i failus uztruko: "
+                             << duration_cast<milliseconds>(end - start).count()
+                             << " ms" << endl;
+                    }
                 }
                 break;
             }
+
             case 7:
                 cout << "Programa baigia darba." << endl;
                 break;
+
             default:
                 cout << "Netinkama ivestis. Pasirinkite skaiciu 1-7:" << endl;
         }
@@ -108,11 +126,11 @@ int main() {
     }
 
     if (x == 'v') {
-        vector<Studentas> s, g, v;
-        runProgram(s, g, v); // run menu for vector
+        vector<Studentas> s;
+        runProgram(s);
     } else {
-        list<Studentas> s, g, v;
-        runProgram(s, g, v); // run menu for list
+        list<Studentas> s;
+        runProgram(s);
     }
 
     return 0;

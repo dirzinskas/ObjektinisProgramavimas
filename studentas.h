@@ -22,7 +22,6 @@ struct Studentas {
     double vidurkis, mediana;
 };
 
-// non-template functions
 int RandomSk(int max);
 bool LyginimasStr(const Studentas &petras, const Studentas &jonas);
 void Rikiuoti(vector<Studentas>& s);
@@ -121,16 +120,6 @@ void Ivedimas(konteineris& s, bool generuoti) {
 }
 
 template<typename konteineris>
-void Rusiavimas(konteineris& s, konteineris& g, konteineris& v) {
-    for (auto& st : s) {
-        if (st.vidurkis < 5 && st.mediana < 5)
-            v.push_back(st);
-        else
-            g.push_back(st);
-    }
-}
-
-template<typename konteineris>
 void Rasymas(konteineris s, string x) {
     ofstream rez("rezultatai_" + x + ".txt");
     rez << "Pavarde Vardas Galutinis(Vid.) Galutinis(Med.)\n";
@@ -138,6 +127,10 @@ void Rasymas(konteineris s, string x) {
         rez << st.pavarde << " " << st.vardas << " "
             << st.vidurkis << " " << st.mediana << "\n";
 }
+
+void Rusiavimas(vector<Studentas>& s, vector<Studentas>& v);
+
+void Rusiavimas(list<Studentas>& s, list<Studentas>& v);
 
 template<typename konteineris>
 void Rezultatai(konteineris s) {

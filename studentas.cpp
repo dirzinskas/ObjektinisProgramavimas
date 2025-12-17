@@ -15,7 +15,23 @@ void Rikiuoti(vector<Studentas>& s) {
 void Rikiuoti(list<Studentas>& s) {
     s.sort(LyginimasStr);
 }
-
+void Rusiavimas(vector<Studentas>& s, vector<Studentas>& v) {
+    auto it = partition(s.begin(), s.end(),
+                        [](const Studentas& st){
+                            return !(st.vidurkis < 5 && st.mediana < 5);
+                        });
+    v.insert(v.end(), it, s.end());
+    s.erase(it, s.end());
+}
+void Rusiavimas(list<Studentas>& s, list<Studentas>& v) {
+    auto it = s.begin();
+    while (it != s.end()) {
+        auto dabartinis = it++;
+        if (dabartinis->vidurkis < 5 && dabartinis->mediana < 5) {
+            v.splice(v.end(), s, dabartinis);
+        }
+    }
+}
 double Mediana(vector<int> pazymiai) {
     if (pazymiai.empty()) return 0.0;
     sort(pazymiai.begin(), pazymiai.end());
