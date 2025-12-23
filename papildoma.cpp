@@ -5,6 +5,7 @@
 #include <sstream>
 #include <set>
 #include <cctype>
+#include <iomanip>
 using namespace std;
  
 int main(){
@@ -21,13 +22,29 @@ if(!ivestis)
 }
 
 while (getline(ivestis, eil)) {
+ string tvarkingas;
+  for (char c : eil) {
+                if (!ispunct(c)&&!isdigit(c))
+                    tvarkingas += tolower(c);
+            }
+
     eilnr++;
     string zodis;
-    stringstream ss(eil);
-    while (ss >> zodis) {
+    stringstream ss(tvarkingas);
+    while (ss >> zodis) { 
         zodziai[zodis]++;
         lentele[zodis].insert(eilnr);
     }
 }
-cout<< "Zodziu skaicius faile: " << zodziai.size() << endl;
+ofstream rez("rezultatas.txt");
+rez<< "Zodziu skaicius faile: " << zodziai.size() << endl;
+for (const auto& pora : zodziai) {
+    if(pora.second < 2) continue;
+    rez << "Zodis '" << pora.first << "' pasikartoja " << pora.second << " kartus, eilutese: ";
+    const auto& eil = lentele[pora.first];
+    for (const auto& nr : eil) {
+        rez << nr << " ";
+    }
+    rez << endl;
+}
 }
