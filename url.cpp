@@ -20,9 +20,14 @@ if(!ivestis)
 while (getline(ivestis, eil)) {
     string zodis;
     stringstream ss(eil);
-    while (ss >> zodis) { 
-        if(zodis.find("http")==0 || zodis.find("www.")==0){
-            visas +=zodis + "\n";
+
+    while (ss >> zodis) {
+
+        if (zodis.find('.') != string::npos &&
+            zodis[0] != '.' &&
+            zodis[zodis.length() - 1] != '.') {
+
+            visas += zodis + "\n";
         }
     }
 }
