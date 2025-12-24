@@ -14,7 +14,10 @@ map<string, int> zodziai;
 map<string, set<int>> lentele;
 int eilnr=0;
 
-ifstream ivestis("zodziai.txt");
+cout<<"Iveskite failo pavadinima: ";
+cin>>tekstas;
+
+ifstream ivestis(tekstas);
 if(!ivestis)
 {
     cout << "Failo nera" << endl;
@@ -37,14 +40,17 @@ while (getline(ivestis, eil)) {
     }
 }
 ofstream rez("rezultatas.txt");
-rez<< "Zodziu skaicius faile: " << zodziai.size() << endl;
-for (const auto& pora : zodziai) {
-    if(pora.second < 2) continue;
-    rez << "Zodis '" << pora.first << "' pasikartoja " << pora.second << " kartus, eilutese: ";
-    const auto& eil = lentele[pora.first];
-    for (const auto& nr : eil) {
+
+rez << "Zodziu daznis:\n";
+for (const auto& pora : zodziai) {  
+    if(pora.second>1)
+        rez << pora.first << ": " << pora.second << "\n";   
+}
+rez << "\nZodziu lentele:\n";
+for (const auto& pora : lentele) {
+    rez << pora.first << ": ";
+    for (const auto& nr : pora.second) {
         rez << nr << " ";
     }
-    rez << endl;
-}
-}
+    rez << "\n";
+}}
