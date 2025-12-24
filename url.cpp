@@ -2,8 +2,20 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <cctype>
+
 using namespace std;
  
+string BeSkyrybos(string netvarkingas) {
+    while (!netvarkingas.empty() && ispunct(netvarkingas.front()))
+        netvarkingas.erase(netvarkingas.begin());
+
+    while (!netvarkingas.empty() && ispunct(netvarkingas.back()))
+        netvarkingas.pop_back();
+
+    return netvarkingas;
+}
+
 int main(){
 string tekstas, eil, visas;
 
@@ -22,7 +34,7 @@ while (getline(ivestis, eil)) {
     stringstream ss(eil);
 
     while (ss >> zodis) {
-
+        zodis = BeSkyrybos(zodis);
         if (zodis.find('.') != string::npos &&
             zodis[0] != '.' &&
             zodis[zodis.length() - 1] != '.') {
